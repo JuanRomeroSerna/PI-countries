@@ -1,4 +1,4 @@
-const { createActivity, getAllActivities } = require('../controllers/activityController');
+const { createActivity, getAllActivities, deleteActivity } = require('../controllers/activityController');
 
 
 const getAllActivitiesHandler = async (req, res) => {
@@ -20,6 +20,18 @@ const createActivityHandler = async (req, res) => {
   }
 };
 
+const deleteActivityHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (id) {
+      await deleteActivity(id);
+      return res.status(200).send({ message: `Activity with id ${id} deleted successfully` })
+    };
+
+  } catch (error) {
+    res.status(400).json({ error: `there is not an Activity with id ${id}` });
+  }
+};
 
 
-module.exports = { createActivityHandler, getAllActivitiesHandler };
+module.exports = { createActivityHandler, getAllActivitiesHandler, deleteActivityHandler };

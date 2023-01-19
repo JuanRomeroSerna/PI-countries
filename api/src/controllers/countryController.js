@@ -9,7 +9,7 @@ const baseCountries = (arr) =>
       name: element.name.common,
       flag: element.flags[0],
       continent: element.continents[0],
-      capital: element.capital,
+      capital: element.capital ? element.capital[0] : "No capital available",
       subregion: element.subregion,
       area: element.area,
       population: element.population,
@@ -17,54 +17,42 @@ const baseCountries = (arr) =>
   });
 
 const getAllCountries = async () => {
-  const dbCountries = await Country.findAll()
-
   const apiCountriesRaw = (
     await axios.get("https://restcountries.com/v3/all")
   ).data;
 
   const apiCountries = baseCountries(apiCountriesRaw)
 
-  return [...dbCountries, ...apiCountries];
-};
-
-const getCountryById = async (id) => {
-  const apiCountriesRaw = (
-    await axios.get("https://restcountries.com/v3/all")
-  ).data;
-
-  const apiCountries = baseCountries(apiCountriesRaw)
-
-  const filteredApi = apiCountries.filter(country => country.id.toLowerCase().includes(id.toLowerCase()));
-
-  if (filteredApi.length === 0) { throw Error("Country not found") }
-
-  const dbCountries = await Country.findByPk(id, {
+  const dbCountries = await Country.findAll({
     include: {
       model: Activity,
-      attributes: ["name", "difficulty", "duration", "season"],
+      attributes: ["name"],
       through: {
         attributes: [],
       },
     },
   });
 
-  return { ...filteredApi[0], ...dbCountries };
+  if (dbCountries.length === 0) Country.bulkCreate(apiCountries)
+
+
+  return [...apiCountries, ...dbCountries];
+};
+
+const getCountryById = async (id) => {
+
+  if (id.length < 3 || id.length > 3) { throw Error(`Invalid id ${id}, the serch must be with 3 characters`) };
+
+  const country = await Country.findByPk(id, {
+    include: Activity
+  });
+
+  return country;
 
 };
 
 
 const getCountryByName = async (name) => {
-
-  const apiCountriesRaw = (
-    await axios.get("https://restcountries.com/v3/all")
-  ).data;
-
-  const apiCountries = baseCountries(apiCountriesRaw)
-
-  const filteredApi = apiCountries.filter(country => country.name.toLowerCase().includes(name.toLowerCase()));
-
-  if (filteredApi.length === 0) { throw Error("Country not found") }
 
   const dbCountries = await Country.findAll({
     where: {
@@ -72,7 +60,9 @@ const getCountryByName = async (name) => {
     },
   });
 
-  return [...filteredApi, ...dbCountries];
+  if (dbCountries.length === 0) { throw Error(`Country with the name ${name} not found`) }
+
+  return dbCountries;
 };
 
 
@@ -81,3 +71,5 @@ module.exports = {
   getCountryByName,
   getCountryById,
 };
+
+

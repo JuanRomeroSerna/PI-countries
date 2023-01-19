@@ -1,10 +1,12 @@
 const { Activity, Country } = require("../db");
+const { getAllCountries } = require("./countryController");
+
 
 
 const getAllActivities = async () => {
 
   const allActivities = await Activity.findAll({
-    include: Country, //
+    include: Country,
   });
   if (allActivities.length === 0) throw Error("no activities found")
 
@@ -12,8 +14,7 @@ const getAllActivities = async () => {
 };
 
 
-
-const createActivity = async (name, difficulty, duration, season, country) => {
+const createActivity = async (name, difficulty, duration, season, countries) => {
 
   const activity = await Activity.create({
     name,
@@ -22,19 +23,26 @@ const createActivity = async (name, difficulty, duration, season, country) => {
     season,
   });
 
-
-  const countriesAdd = await Country.findAll({
+  const countriesFound = await Country.findAll({
     where: {
-      name: country,
-    }
-  })
+      name: countries,
+    },
+  });
 
-  await activity.addCountries(countriesAdd);
+  await activity.addCountries(countriesFound);
 
   return activity;
 
 };
 
+const deleteActivity = async (id) => {
+
+  const activity = await Activity.destroy({ where: { id } });
+  if (activity > 0) {
+    return 'Activity deleted'
+
+  };
+}
 
 
 
@@ -42,5 +50,4 @@ const createActivity = async (name, difficulty, duration, season, country) => {
 
 
 
-
-module.exports = { createActivity, getAllActivities };
+module.exports = { createActivity, getAllActivities, deleteActivity };

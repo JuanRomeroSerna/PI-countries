@@ -7,6 +7,12 @@ const {
 } = process.env;
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/countries`, {
+
+  define: {
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+  },
+
   logging: false, // set to console.log to see the raw SQL queries
   native: false,
   // lets Sequelize know we can use pg-native for ~30% more speed
@@ -33,8 +39,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Country, Activity } = sequelize.models;
 
-Country.belongsToMany(Activity, { through: 'country_activity' })
-Activity.belongsToMany(Country, { through: 'country_activity' })
+Country.belongsToMany(Activity, { through: 'country_activity', timestamps: false })
+Activity.belongsToMany(Country, { through: 'country_activity', timestamps: false })
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

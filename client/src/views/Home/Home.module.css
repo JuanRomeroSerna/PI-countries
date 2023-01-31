@@ -1,0 +1,7 @@
+.continer {
+  width: 100%;
+  border: 2px solid rgb(255, 255, 255);
+  color: black;
+  margin: 1em auto;
+  font-size: larger;
+}

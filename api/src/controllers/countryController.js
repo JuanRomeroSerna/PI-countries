@@ -11,7 +11,7 @@ const baseCountries = (arr) =>
       continent: element.continents[0],
       capital: element.capital ? element.capital[0] : "No capital available",
       subregion: element.subregion,
-      area: element.area,
+      area: `${element.area} km2`,
       population: element.population,
     };
   });
@@ -36,7 +36,7 @@ const getAllCountries = async () => {
   if (dbCountries.length === 0) Country.bulkCreate(apiCountries)
 
 
-  return [...apiCountries, ...dbCountries];
+  return dbCountries;
 };
 
 const getCountryById = async (id) => {

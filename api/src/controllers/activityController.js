@@ -1,6 +1,4 @@
 const { Activity, Country } = require("../db");
-const { getAllCountries } = require("./countryController");
-
 
 
 const getAllActivities = async () => {
@@ -36,13 +34,10 @@ const createActivity = async (name, difficulty, duration, season, countries) => 
 };
 
 const deleteActivity = async (id) => {
-
-  const activity = await Activity.destroy({ where: { id } });
-  if (activity > 0) {
-    return 'Activity deleted'
-
-  };
-}
+  const activity = await Activity.findByPk(id);
+  if (!activity) throw Error("Activity not found");
+  await activity.destroy();
+};
 
 
 

@@ -18,7 +18,7 @@ activityRouter.get("/", getAllActivitiesHandler);
 
 activityRouter.post("/", validate, createActivityHandler);
 
-activityRouter.post('/delete/:id', deleteActivityHandler)
+activityRouter.delete('/:id', deleteActivityHandler)
 
 
 module.exports = activityRouter;

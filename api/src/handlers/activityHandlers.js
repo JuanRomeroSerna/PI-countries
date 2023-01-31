@@ -14,7 +14,7 @@ const createActivityHandler = async (req, res) => {
   const { name, difficulty, duration, season, countries } = req.body;
   try {
     const activity = await createActivity(name, difficulty, duration, season, countries);
-    res.status(200).json(activity);
+    res.status(200).json("Activity created successfully");
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

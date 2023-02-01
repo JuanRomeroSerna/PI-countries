@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./pagination.module.css";
 
 const Pagination = ({
   countriesPerPage,
@@ -21,7 +22,7 @@ const Pagination = ({
   }
 
   return (
-    <div className="{p.pagContainer}">
+    <div className={style.container}>
       <button
         className="{}"
         disabled={currentPage === 1 ? true : false}
@@ -33,7 +34,7 @@ const Pagination = ({
       {pageNumbers &&
         pageNumbers.map((n) => (
           <button
-            className="" // eslint-disable-line
+            className={currentPage === n ? style.active : ""}
             key={n}
             onClick={() => pagination(n)}
           >
@@ -42,7 +43,7 @@ const Pagination = ({
           </button>
         ))}
       <button
-        className="{p.backBtn}"
+        className=""
         disabled={currentPage === pageNumbers.length ? true : false}
         onClick={() => handleNext()}
       >

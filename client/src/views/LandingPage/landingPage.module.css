@@ -1,0 +1,28 @@
+.container {
+  background-color: #f7f6f1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.button {
+  background-color: #f7f6f1;
+  border: 1px solid #121211;
+  border-radius: 5px;
+  color: #000;
+  font-size: 30px;
+  font-weight: 600;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5)
+}
+
+.button:hover {
+  background-color: #000;
+  color: #f7f6f1;
+}

@@ -6,6 +6,8 @@
   width: 100%;
   height: 100%;
   margin-right: 30px;
+  margin-bottom: 30px;
+  background-color: #ebe9e9
 }
 
 ;
@@ -17,7 +19,7 @@
   justify-content: center;
   margin-right: 10px;
   width: 15%;
-
+  font-weight: bold;
 }
 
 .filter {
@@ -26,5 +28,33 @@
   align-items: center;
   justify-content: center;
   width: 15%;
+}
 
+.clearFilter {
+  background-color: #dededee6;
+  border-radius: 12px;
+  width: 110px;
+  height: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.clearFilter:hover {
+  background-color: #f5fefe;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
+}
+
+.option {
+  background-color: #dededee6;
+  border-radius: 12px;
+  width: 110px;
+  height: 30px;
+  font-weight: bold;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.option:hover {
+  background-color: #f5fefe;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
 }

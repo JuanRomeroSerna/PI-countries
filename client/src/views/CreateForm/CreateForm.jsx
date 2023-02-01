@@ -17,22 +17,9 @@ const CreateForm = () => {
     countries: [],
   });
 
-  const [errors, setErrors] = useState({
-    name: "",
-    difficulty: "",
-    duration: "",
-    season: "",
-    countries: [],
-  });
-
   const changeHandler = (event) => {
     const property = event.target.name;
     const value = event.target.value;
-
-    validate({
-      ...form,
-      [property]: value,
-    });
 
     setForm({
       ...form,
@@ -54,11 +41,13 @@ const CreateForm = () => {
     if (!form.season) {
       errors.season = "Season is required";
     }
-    if (!form.countries.length) {
+    if (!form.countries[0]) {
       errors.countries = "Select at least 1 country";
     }
-    setErrors(errors);
+    return errors;
   };
+
+  const err = validate(form);
 
   const handleCountries = (event) => {
     if (!form.countries?.includes(event.target.value)) {
@@ -84,29 +73,32 @@ const CreateForm = () => {
     event.preventDefault();
     axios
       .post("http://localhost:3001/activities", form)
-      .then((res) => alert(res))
+      .then(alert("Activity created"))
       .catch((error) => alert(error));
   };
 
   return (
     <form onSubmit={submitHandler} className={style.form}>
       <div>
-        <label>Name: </label>
+        <label className={style.label}>Name: </label>
+        <br />
+        {err.name && <span className={style.span}>{err.name}</span>}
         <input
           type="text"
           name="name"
-          value={form.name}
           onChange={changeHandler}
           placeholder="Type the activity name"
+          className={style.input}
         />
-        {errors.name && <span>{errors.name}</span>}
       </div>
       <div>
-        <label>Difficulty: </label>
+        <label className={style.label}>Difficulty: </label>
+        <br />
+        {err.difficulty && <span className={style.span}>{err.difficulty}</span>}
         <select
           name="difficulty"
-          value={form.difficulty}
           onChange={changeHandler}
+          className={style.select}
         >
           <option value="">--Select a Difficulty--</option>
           <option value="1">⭐</option>
@@ -115,61 +107,65 @@ const CreateForm = () => {
           <option value="4">⭐⭐⭐⭐</option>
           <option value="5">⭐⭐⭐⭐⭐</option>
         </select>
-        {errors.difficulty && <span>{errors.difficulty}</span>}
       </div>
       <div>
-        <label>Duration: </label>
+        <label className={style.label}>Duration: </label>
+        <br />
+        {err.duration && <span className={style.span}>{err.duration}</span>}
         <input
           type="text"
           name="duration"
-          value={form.duration}
           onChange={changeHandler}
           placeholder="Ex: 1 hours"
+          className={style.input}
         />
-        {errors.duration && <span>{errors.duration}</span>}
       </div>
       <div>
-        <label>Season: </label>
-        <select name="season" value={form.season} onChange={changeHandler}>
+        <label className={style.label}>Season: </label>
+        <br />
+        {err.season && <span className={style.span}>{err.season}</span>}
+        <select name="season" onChange={changeHandler} className={style.select}>
           <option value="">--Select a Season--</option>
           <option value="summer">Summer</option>
           <option value="winter">Winter</option>
           <option value="autumn">Autumn</option>
           <option value="spring">Spring</option>
         </select>
-        {errors.season && <span>{errors.season}</span>}
       </div>
       <div>
-        <label>Countries: </label>
+        <label className={style.label}>Countries: </label>
+        <br />
+        {err.countries && <span className={style.span}>{err.countries}</span>}
         <select
           name="countries"
-          value={form.countries}
-          onChange={(event) => handleCountries(event)}
+          onChange={handleCountries}
+          className={style.select}
         >
           <option value="">--Select a Country--</option>
           {sortedCountries.map((country, index) => (
-            <option key={index} value={country.name}>
-              {country.name}
-            </option>
+            <option key={index}>{country.name}</option>
           ))}
         </select>
-        {errors.countries && <span>{errors.countries}</span>}
       </div>
       <div className="">
         {form.countries?.map((country, index) => (
-          <span key={index} className="" value={country}>
+          <span key={index} value={country} className={style.country}>
             {country}
-            <button onClick={handleDelete} className="" value={country}>
+            <button
+              onClick={handleDelete}
+              className={style.buttonCountry}
+              value={country}
+            >
               x
             </button>{" "}
           </span>
         ))}
       </div>
-
+      <br />
       <button
         type="submit"
-        className="buttonSubmit"
-        disabled={Object.entries(errors).length ? true : false}
+        className={style.buttonSubmit}
+        disabled={Object.entries(err).length ? true : false}
       >
         Create
       </button>

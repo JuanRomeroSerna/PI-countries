@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCountryByName } from "../../redux/actions/countries";
+import style from "./Serchbar.module.css";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -16,15 +17,23 @@ const SearchBar = () => {
     document.getElementById("search").value = "";
   };
 
+  const handleKeyPress = (event) => {
+    if (event.keyCode === 13) {
+      handleSubmit(event);
+    }
+  };
+
   return (
-    <div>
+    <div className={style.container}>
       <input
         id="search"
         type="text"
         placeholder="Search by name..."
         onChange={handleInputChange}
+        onKeyDown={handleKeyPress}
+        className={style.input}
       />
-      <button type="submit" onClick={handleSubmit}>
+      <button className={style.button} type="submit" onClick={handleSubmit}>
         Search
       </button>
     </div>

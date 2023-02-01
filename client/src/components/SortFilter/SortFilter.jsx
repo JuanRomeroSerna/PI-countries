@@ -4,11 +4,11 @@ import {
   sortByPopulation,
   sortAlphabetical,
   filterByContinent,
+  getCountries,
 } from "../../redux/actions/countries";
 import { filterActivities } from "../../redux/actions/activities";
 import style from "./SortFilter.module.css";
 import { useDispatch } from "react-redux";
-import { clearFilters } from "../../redux/actions/countries";
 
 const SortFilters = ({ setState, state, setSort }) => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const SortFilters = ({ setState, state, setSort }) => {
 
   const handleClick = (event) => {
     event.preventDefault();
-    dispatch(clearFilters());
+    dispatch(getCountries());
     document.getElementById("population").value = "";
     document.getElementById("alphabetical").value = "";
     document.getElementById("continent").value = "all";
@@ -46,20 +46,32 @@ const SortFilters = ({ setState, state, setSort }) => {
     <div className={style.container}>
       <div className={style.sort}>
         <h3>Sort by:</h3>
-        <select id="population" onChange={handlePopulation}>
-          <option value="">--Population--</option>
+        <select
+          className={style.option}
+          id="population"
+          onChange={handlePopulation}
+        >
+          <option value="">-Population-</option>
           <option value="Highest">Highest</option>
           <option value="Lowest">Lowest</option>
         </select>
-        <select id="alphabetical" onChange={handleAlphabetical}>
-          <option value="">--Alphabetical--</option>
+        <select
+          className={style.option}
+          id="alphabetical"
+          onChange={handleAlphabetical}
+        >
+          <option value="">Alphabetical</option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
         </select>
       </div>
       <div className={style.filter}>
         <h3>Filter by continet:</h3>
-        <select id="continent" onChange={handleContinet}>
+        <select
+          className={style.option}
+          id="continent"
+          onChange={handleContinet}
+        >
           <option value="all">All</option>
           <option value="Africa">Africa</option>
           <option value="Antarctica">Antarctica</option>
@@ -72,7 +84,11 @@ const SortFilters = ({ setState, state, setSort }) => {
       </div>
       <div className={style.filter}>
         <h3>Filter by activity:</h3>
-        <select id="activities" onChange={handleActivity}>
+        <select
+          className={style.option}
+          id="activities"
+          onChange={handleActivity}
+        >
           <option value="activities">Activities</option>
           {activities?.map((activity, index) => (
             <option key={index} value={activity.name}>
@@ -81,8 +97,8 @@ const SortFilters = ({ setState, state, setSort }) => {
           ))}
         </select>
       </div>
-      <button className="{s.deleteFilter}" onClick={handleClick}>
-        <span className="{s.front}">Clear Filters</span>
+      <button className={style.clearFilter} onClick={handleClick}>
+        <span>Clear Filters</span>
       </button>
     </div>
   );

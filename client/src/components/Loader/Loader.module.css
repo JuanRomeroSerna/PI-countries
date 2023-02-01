@@ -1,0 +1,15 @@
+.loader {
+  text-align: center;
+  font-size: 2em;
+  animation: loading 2s infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}

@@ -13,14 +13,20 @@ const CountryCardId = () => {
 
   return (
     <div className={style.container}>
-      <h1>{country.name}</h1>
-      <img src={country.flag} alt="flag" className={style.img} />
-      <h3>Continent: {country.continent}</h3>
-      <h3>Id: {country.id}</h3>
-      <h3>Capital: {country.capital}</h3>
-      <h3>Subregion: {country.subregion}</h3>
-      <h3>Area: {formatter.format(country.area)} km²</h3>
-      <h3>Population: {formatter.format(country.population)} (est.)</h3>
+      <div className={style.title}>
+        <h1>{country.name}</h1>
+      </div>
+      <div>
+        <img className={style.img} src={country.flag} alt="flag" />
+      </div>
+      <h1>Continent: {country.continent}</h1>
+      <div className={style.info}>
+        <h3>Id: {country.id}</h3>
+        <h3>Capital: {country.capital}</h3>
+        <h3>Subregion: {country.subregion}</h3>
+        <h3>Area: {formatter.format(country.area)} km²</h3>
+        <h3>Population: {formatter.format(country.population)} (est.)</h3>
+      </div>
       <h3>Activities:</h3>
       {country.activities?.length ? (
         <table>

@@ -18,10 +18,12 @@ const Activities = () => {
   return (
     <div className={style.container}>
       <Link to="/countries" className={style.link}>
-        BACK TO COUNTRIES
+        BACK
       </Link>
-      <h1> Activities </h1>
-      <CreateForm />
+      <h1> Create activities </h1>
+      <div className={style.form}>
+        <CreateForm />
+      </div>
       <br />
       <hr />
       <DisplayActivities />

@@ -1,7 +1,6 @@
 import axios from "axios";
 import style from "./DisplayActivities.module.css";
 import { useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 
 const DisplayActivities = () => {
   const allActivities = useSelector((state) => state.activities);
@@ -10,7 +9,7 @@ const DisplayActivities = () => {
     window.location.reload(false);
     axios
       .delete(`http://localhost:3001/activities/${id}`)
-      .then((res) => alert(res))
+      .then(alert("Activity deleted"))
       .catch((error) => alert(error));
   };
 
@@ -19,7 +18,7 @@ const DisplayActivities = () => {
       <h2>Activities list</h2>
       <table className={style.container}>
         <thead>
-          <tr>
+          <tr className={style.titles}>
             <th>Activity name</th>
             <th>Difficulty</th>
             <th>Duration</th>

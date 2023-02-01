@@ -3,9 +3,12 @@ import { useSelector } from "react-redux";
 import CountryCard from "../CountryCard/CountryCard";
 import style from "./CardContainer.module.css";
 import Pagination from "../Pagination/pagination";
+import NotFound from "../NotFound/NotFound";
+import Loading from "../Loader/Loader";
 
 const CardsContainer = () => {
   const sortCountries = useSelector((state) => state.sortCountries);
+  const errors = useSelector((state) => state.errorCountry);
 
   const [currentPage, setCurrentPage] = useState(1); // eslint-disable-line
   const [countriesPerPage, setCountriesPerPage] = useState(10); // eslint-disable-line
@@ -22,17 +25,23 @@ const CardsContainer = () => {
 
   return (
     <div className={style.container}>
-      {currentCountries?.map((country, index) => {
-        return (
-          <CountryCard
-            key={index}
-            id={country.id}
-            flag={country.flag}
-            name={country.name}
-            continent={country.continent}
-          />
-        );
-      })}
+      {currentCountries.length ? (
+        currentCountries?.map((country, index) => {
+          return (
+            <CountryCard
+              key={index}
+              id={country.id}
+              flag={country.flag}
+              name={country.name}
+              continent={country.continent}
+            />
+          );
+        })
+      ) : errors ? (
+        <NotFound />
+      ) : (
+        <Loading />
+      )}
 
       <div className={style.pag}>
         <Pagination
@@ -42,6 +51,9 @@ const CardsContainer = () => {
           currentPage={currentPage}
         />
       </div>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

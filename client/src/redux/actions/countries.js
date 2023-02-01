@@ -7,6 +7,7 @@ export const SORT_ALPHABETICAL = "SORT_BY_NAME"
 export const SORT_BY_POPULATION = "SORT_BY_POPULATION"
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT"
 export const CLEAR_FILTERS = "CLEAR_FILTERS"
+export const ERROR_COUNTRY = "ERROR_COUNTRY"
 
 
 export const getCountries = () => {
@@ -29,7 +30,12 @@ export const getCountryByName = (name) => {
   return async function (dispatch) {
     const getData = await axios.get(`http://localhost:3001/countries?name=${name}`);
     const country = getData.data
-    dispatch({ type: GET_COUNTRY_BY_NAME, payload: country })
+    if (country.length) {
+      dispatch({ type: GET_COUNTRY_BY_NAME, payload: country })
+    } else {
+      dispatch({ type: ERROR_COUNTRY })
+    }
+
   };
 };
 

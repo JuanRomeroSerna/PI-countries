@@ -3,7 +3,7 @@ import './App.css';
 import NavBar from './components/NavBar/navBar';
 import { LandingPage, Home, Details, Activities } from "./views"
 
-function App() {
+function App(id) {
 
   const navShow = useLocation();
 

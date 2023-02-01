@@ -2,9 +2,10 @@
   width: 90%;
   border: 2px solid rgb(255, 255, 255);
   color: black;
-  margin: 1em auto;
-  font-size: larger;
+  margin: 32px auto;
+  font-size: 20px;
 }
+
 
 h2 {
   text-align: center;
@@ -13,7 +14,7 @@ h2 {
 }
 
 thead {
-  background-color: rgb(242, 242, 255);
+  background-color: rgb(242, 248, 255);
   border: 2px solid rgb(34, 34, 34);
   padding: 0.3em;
 }
@@ -21,4 +22,8 @@ thead {
 th {
   border: 2px solid black;
   padding: 0.3em;
+}
+
+button {
+  cursor: pointer;
 }

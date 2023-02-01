@@ -1,6 +1,5 @@
 .container {
   width: 90%;
-
   border-radius: 30px;
   color: black;
   margin: 40px auto;
@@ -8,6 +7,18 @@
   background-color: rgb(243, 243, 243);
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
 }
+
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: rgb(10, 10, 10);
+  font-size: 20px;
+  font-weight: 500;
+  padding: 10px;
+}
+
 
 .link {
   display: flex;
@@ -20,6 +31,11 @@
   width: fit-content;
   font-weight: bold;
   padding: 2px;
-  margin: 30px;
-  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+  margin: 20px;
+  position: fixed;
+}
+
+.link:hover {
+  background-color: #f5fefe;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
 }

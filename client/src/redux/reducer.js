@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_COUNTRY_DETAILS, GET_COUNTRY_BY_NAME, SORT_ALPHABETICAL, SORT_BY_POPULATION, FILTER_BY_CONTINENT, CLEAR_FILTERS } from "./actions/countries"
+import { GET_COUNTRIES, GET_COUNTRY_DETAILS, GET_COUNTRY_BY_NAME, SORT_ALPHABETICAL, SORT_BY_POPULATION, FILTER_BY_CONTINENT, CLEAR_FILTERS, ERROR_COUNTRY } from "./actions/countries"
 import { GET_ACTIVITIES, FILTER_ACTIVITIES, DELETE_ACTIVITY, CREATE_ACTIVITY, ERROR } from "./actions/activities"
 
 const initialState = {
@@ -6,7 +6,8 @@ const initialState = {
   sortCountries: [],
   countryDetails: {},
   activities: [],
-  error: ""
+  error: "",
+  errorCountry: false,
 }
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -19,6 +20,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_COUNTRY_DETAILS:
       return { ...state, countryDetails: action.payload }
     case GET_COUNTRY_BY_NAME:
+      console.log(action.payload);
       return { ...state, sortCountries: action.payload }
 
     case SORT_ALPHABETICAL:
@@ -72,6 +74,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, error: action.payload }
     case CLEAR_FILTERS:
       return { ...state, sortCountries: state.countries }
+    case ERROR_COUNTRY:
+      return { ...state, sortCountries: [], errorCountry: true }
     default:
       return { ...state }
   }

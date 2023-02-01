@@ -60,7 +60,8 @@ const getCountryByName = async (name) => {
     },
   });
 
-  if (dbCountries.length === 0) { throw Error(`Country with the name ${name} not found`) }
+  // if (dbCountries.length === 0) { throw Error(`Country with the name ${name} not found`) }
+
 
   return dbCountries;
 };

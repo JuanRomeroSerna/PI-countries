@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { /* useEffect, */ useState } from "react";
 import { useSelector } from "react-redux";
-// import { getActivities } from "../../redux/actions/activities";
-// import { getCountries } from "../../redux/actions/countries";
+import style from "./CreateForm.module.css";
 
 const CreateForm = () => {
   const countries = useSelector((state) => state.countries);
@@ -10,7 +9,6 @@ const CreateForm = () => {
     a.name.localeCompare(b.name)
   );
 
-  // const activities = useSelector((state) => state.activities);
   const [form, setForm] = useState({
     name: "",
     difficulty: "",
@@ -91,9 +89,9 @@ const CreateForm = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className={style.form}>
       <div>
-        <label>Name</label>
+        <label>Name: </label>
         <input
           type="text"
           name="name"
@@ -104,7 +102,7 @@ const CreateForm = () => {
         {errors.name && <span>{errors.name}</span>}
       </div>
       <div>
-        <label>Difficulty</label>
+        <label>Difficulty: </label>
         <select
           name="difficulty"
           value={form.difficulty}
@@ -120,7 +118,7 @@ const CreateForm = () => {
         {errors.difficulty && <span>{errors.difficulty}</span>}
       </div>
       <div>
-        <label>Duration</label>
+        <label>Duration: </label>
         <input
           type="text"
           name="duration"
@@ -131,7 +129,7 @@ const CreateForm = () => {
         {errors.duration && <span>{errors.duration}</span>}
       </div>
       <div>
-        <label>Season</label>
+        <label>Season: </label>
         <select name="season" value={form.season} onChange={changeHandler}>
           <option value="">--Select a Season--</option>
           <option value="summer">Summer</option>
@@ -142,7 +140,7 @@ const CreateForm = () => {
         {errors.season && <span>{errors.season}</span>}
       </div>
       <div>
-        <label>Countries</label>
+        <label>Countries: </label>
         <select
           name="countries"
           value={form.countries}
@@ -167,11 +165,6 @@ const CreateForm = () => {
           </span>
         ))}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
 
       <button
         type="submit"

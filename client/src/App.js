@@ -10,13 +10,13 @@ function App() {
   return (
     <div className="App">
 
-      {navShow.pathname !== "/" && <NavBar />}
+      {navShow.pathname !== "/" && navShow.pathname !== "/activities" && <NavBar />}
 
       <Route exact path={"/"} render={() => < LandingPage />} />
 
-      <Route path={"/home"} render={() => < Home />} />
+      <Route exact path={"/countries"} render={() => < Home />} />
 
-      <Route exact path={"/details/:id"} render={() => < Details />} />
+      <Route exact path={"/countries/:id"} render={() => < Details />} />
 
       <Route exact path={"/activities"} render={() => < Activities />} />
 

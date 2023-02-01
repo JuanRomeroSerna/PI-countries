@@ -3,16 +3,16 @@ const { Country, Activity } = require("../db.js");
 const { Op } = require("sequelize")
 
 const baseCountries = (arr) =>
-  arr.map((element) => {
+  arr.map((country) => {
     return {
-      id: element.cca3,
-      name: element.name.common,
-      flag: element.flags[0],
-      continent: element.continents[0],
-      capital: element.capital ? element.capital[0] : "No capital available",
-      subregion: element.subregion,
-      area: `${element.area} km2`,
-      population: element.population,
+      id: country.cca3,
+      name: country.name.common,
+      flag: country.flags[0],
+      continent: country.continents[0],
+      capital: country.capital ? country.capital[0] : "No capital available",
+      subregion: country.subregion ? country.subregion : "No subregion available",
+      area: country.area,
+      population: country.population,
     };
   });
 
@@ -21,7 +21,7 @@ const getAllCountries = async () => {
     await axios.get("https://restcountries.com/v3/all")
   ).data;
 
-  const apiCountries = baseCountries(apiCountriesRaw)
+  const apiCountries = await baseCountries(apiCountriesRaw)
 
   const dbCountries = await Country.findAll({
     include: {
@@ -33,10 +33,10 @@ const getAllCountries = async () => {
     },
   });
 
-  if (dbCountries.length === 0) Country.bulkCreate(apiCountries)
+  if (dbCountries.length === 0) await Country.bulkCreate(apiCountries)
 
 
-  return dbCountries;
+  return dbCountries
 };
 
 const getCountryById = async (id) => {

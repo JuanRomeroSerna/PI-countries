@@ -4,7 +4,7 @@ const LandingPage = () => {
   return (
     <div>
       <h1>Pi Countries Juan Pablo Romero</h1>
-      <Link to="home">
+      <Link to="/countries">
         <button>Ingresar</button>
       </Link>
     </div>

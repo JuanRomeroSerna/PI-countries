@@ -10,7 +10,7 @@ import style from "./SortFilter.module.css";
 import { useDispatch } from "react-redux";
 import { clearFilters } from "../../redux/actions/countries";
 
-const SortFilters = ({ setState, state, setSort, setCurrentPage }) => {
+const SortFilters = ({ setState, state, setSort }) => {
   const dispatch = useDispatch();
   const activities = useSelector((state) => state.activities);
 
@@ -27,13 +27,11 @@ const SortFilters = ({ setState, state, setSort, setCurrentPage }) => {
   const handleContinet = (event) => {
     dispatch(filterByContinent(event.target.value));
     setSort(1);
-    setCurrentPage(1);
   };
 
   const handleActivity = (event) => {
     dispatch(filterActivities(event.target.value));
     setSort(1);
-    setCurrentPage(1);
   };
 
   const handleClick = (event) => {

@@ -5,6 +5,7 @@ import { getCountries } from "../../redux/actions/countries";
 import { getActivities } from "../../redux/actions/activities";
 import CreateForm from "../CreateForm/CreateForm";
 import DisplayActivities from "./DisplayActivities";
+import { Link } from "react-router-dom";
 
 const Activities = () => {
   const dispatch = useDispatch();
@@ -16,11 +17,13 @@ const Activities = () => {
 
   return (
     <div className={style.container}>
+      <Link to="/countries" className={style.link}>
+        BACK TO COUNTRIES
+      </Link>
       <h1> Activities </h1>
       <CreateForm />
       <br />
       <hr />
-      <br />
       <DisplayActivities />
     </div>
   );

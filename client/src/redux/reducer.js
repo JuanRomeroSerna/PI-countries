@@ -4,10 +4,8 @@ import { GET_ACTIVITIES, FILTER_ACTIVITIES, DELETE_ACTIVITY, CREATE_ACTIVITY, ER
 const initialState = {
   countries: [],
   sortCountries: [],
-  countriesDetail: [],
-  country: {},
+  countryDetails: {},
   activities: [],
-  filters: { activities: "activities", continents: "all" },
   error: ""
 }
 const rootReducer = (state = initialState, action) => {
@@ -19,9 +17,9 @@ const rootReducer = (state = initialState, action) => {
         sortCountries: [...action.payload]
       }
     case GET_COUNTRY_DETAILS:
-      return { ...state, country: action.payload }
+      return { ...state, countryDetails: action.payload }
     case GET_COUNTRY_BY_NAME:
-      return { ...state, country: action.payload }
+      return { ...state, sortCountries: action.payload }
 
     case SORT_ALPHABETICAL:
       const sortCountries = state.countries
@@ -50,45 +48,20 @@ const rootReducer = (state = initialState, action) => {
       }
 
     case FILTER_BY_CONTINENT:
-      state.filters.continents = action.payload;
-      const allCountries = state.countries;
-      const continentFilter =
-        action.payload === "all"
-          ? allCountries
-          : allCountries.filter(
-            (country) => country.continent === action.payload
-          );
+      const allCountries = state.countries
+      const filterCountries = action.payload === "all" ? [...allCountries] : allCountries.filter(country => country.continent === action.payload)
       return {
         ...state,
-        sortCountries: [...continentFilter],
+        sortCountries: filterCountries
       }
     case GET_ACTIVITIES:
       return { ...state, activities: action.payload }
     case FILTER_ACTIVITIES:
-      state.filters.activities = action.payload;
-      const allCountriesActivities = state.countries;
-      let filteredActivities = [];
-      if (action.payload === "activities") {
-        filteredActivities = allCountriesActivities.filter((country) =>
-          country.activities[0]?.name
-            ? country.activities[0]
-            : false
-        );
-      } else {
-        filteredActivities = allCountriesActivities.filter((event) =>
-          event.activities.some(
-            (country) => country.name === action.payload
-          )
-        );
-      }
-      if (state.filters.continents !== "all") {
-        filteredActivities = filteredActivities.filter(
-          (country) => country.continents === state.filters.continents
-        );
-      }
+      const filterActivities = state.countries
+      const filteredActivities = action.payload === "activities" ? [...filterActivities] : filterActivities.filter(country => country.activities.map(activity => activity.name).includes(action.payload))
       return {
         ...state,
-        sortCountries: [...filteredActivities],
+        sortCountries: filteredActivities
       }
 
     case DELETE_ACTIVITY:

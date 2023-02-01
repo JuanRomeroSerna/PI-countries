@@ -1,28 +1,30 @@
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+  margin-right: 30px;
 }
 
 ;
 
 .sort {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  margin-right: 10px;
+  width: 15%;
+
 }
 
 .filter {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 15%;
+
 }

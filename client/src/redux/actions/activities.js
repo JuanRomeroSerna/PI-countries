@@ -8,7 +8,7 @@ export const ERROR = "ERROR"
 
 export const getActivities = () => {
   return async function (dispatch) {
-    const getData = await axios.get("http://localhost:3001/activities");
+    const getData = await axios.get("/activities");
     const activities = getData.data
     dispatch({ type: GET_ACTIVITIES, payload: activities })
 
@@ -25,7 +25,7 @@ export const filterActivities = (payload) => {
 export const deleteActivity = (id) => {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/activities/${id}`);
+      await axios.delete(`/activities/${id}`);
       dispatch({ type: DELETE_ACTIVITY, payload: id })
     } catch (error) {
       dispatch({
@@ -38,7 +38,7 @@ export const deleteActivity = (id) => {
 
 export const createActivity = (activity) => {
   return async function (dispatch) {
-    const getData = await axios.post("http://localhost:3001/activities", activity);
+    const getData = await axios.post("/activities", activity);
     const activityCreated = getData.data
     dispatch({ type: CREATE_ACTIVITY, payload: activityCreated })
   };

@@ -12,7 +12,7 @@ export const ERROR_COUNTRY = "ERROR_COUNTRY"
 
 export const getCountries = () => {
   return async function (dispatch) {
-    const getData = await axios.get("http://localhost:3001/countries");
+    const getData = await axios.get("/countries");
     const countries = getData.data
     dispatch({ type: GET_COUNTRIES, payload: countries })
   };
@@ -20,7 +20,7 @@ export const getCountries = () => {
 
 export const getCountryDetails = (id) => {
   return async function (dispatch) {
-    const getData = await axios.get(`http://localhost:3001/countries/${id}`);
+    const getData = await axios.get(`/countries/${id}`);
     const country = getData.data
     dispatch({ type: GET_COUNTRY_DETAILS, payload: country })
   };

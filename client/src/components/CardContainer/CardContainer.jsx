@@ -5,6 +5,7 @@ import style from "./CardContainer.module.css";
 import Pagination from "../Pagination/pagination";
 import NotFound from "../NotFound/NotFound";
 import Loading from "../Loader/Loader";
+import { useEffect } from "react";
 
 const CardsContainer = () => {
   const sortCountries = useSelector((state) => state.sortCountries);
@@ -18,6 +19,12 @@ const CardsContainer = () => {
     indexOfFirstCharacter,
     indexOfLastCountry
   );
+
+  useEffect(() => {
+    if (currentCountries.length < 5) {
+      setCurrentPage(1);
+    }
+  }, [currentCountries]);
 
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
